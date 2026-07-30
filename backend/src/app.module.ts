@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { Pass } from './pass/pass.entity';
 
 @Module({
@@ -15,7 +13,5 @@ import { Pass } from './pass/pass.entity';
       synchronize: true, // creates table on start, ignores if it exists
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
