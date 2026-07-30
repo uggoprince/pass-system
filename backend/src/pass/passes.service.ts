@@ -9,11 +9,13 @@ import { Repository } from 'typeorm';
 import { nanoid } from 'nanoid';
 import { Pass, PassStatus } from './pass.entity';
 import { CreatePassDto } from './dto/create-pass.dto';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class PassesService {
   constructor(
     @InjectRepository(Pass) private readonly repo: Repository<Pass>,
+    private readonly notifications: NotificationsService,
   ) {}
 
   async create(dto: CreatePassDto) {
@@ -29,6 +31,22 @@ export class PassesService {
   }
 
   async verify(code: string) {
+    const rows = await this.repo.query<Pass[]>(
+      `UPDATE passes
+         SET status = 'USED', used_at = now()
+       WHERE code = $1
+         AND status = 'PENDING'
+         AND valid_date >= CURRENT_DATE
+       RETURNING *`,
+      [code],
+    );
+
+    if (rows.length > 0) {
+      // Fire the notification only on a genuine successful redemption.
+      this.notifications.dispatch('pass.verified', 'push');
+      return { status: 'USED', pass: rows[0] };
+    }
+
     const existing = await this.repo.findOne({ where: { code } });
 
     if (!existing) {
