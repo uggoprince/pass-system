@@ -31,7 +31,7 @@ export class PassesService {
   }
 
   async verify(code: string) {
-    const rows = await this.repo.query<Pass[]>(
+    const [rows] = await this.repo.query<[Pass[], number]>(
       `UPDATE passes
          SET status = 'USED', used_at = now()
        WHERE code = $1

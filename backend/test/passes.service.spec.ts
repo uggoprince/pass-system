@@ -9,6 +9,13 @@ import { PassesService } from '../src/pass/passes.service';
 import { Pass, PassStatus } from '../src/pass/pass.entity';
 import { NotificationsService } from '../src/notifications/notifications.service';
 
+type MockRepo = {
+  create: jest.Mock;
+  save: jest.Mock;
+  query: jest.Mock;
+  findOne: jest.Mock;
+};
+
 describe('PassesService', () => {
   let service: PassesService;
   let repo: MockRepo;
@@ -16,7 +23,10 @@ describe('PassesService', () => {
 
   beforeEach(async () => {
     repo = {
-      create: jest.fn((x: Partial<Pass>) => x),
+      create: jest.fn((x: Partial<Pass>) => ({
+        status: PassStatus.PENDING,
+        ...x,
+      })),
       save: jest.fn((x: Partial<Pass>) => Promise.resolve(x)),
       query: jest.fn(),
       findOne: jest.fn(),
@@ -46,7 +56,7 @@ describe('PassesService', () => {
   });
 
   it('verifies a PENDING pass once and marks it USED + notifies', async () => {
-    repo.query.mockResolvedValueOnce([{ code: 'abc', status: 'USED' }]);
+    repo.query.mockResolvedValueOnce([[{ code: 'abc', status: 'USED' }], 1]);
     const res = await service.verify('abc');
     expect(res.status).toBe('USED');
     expect(notifications.dispatch).toHaveBeenCalledWith(
@@ -56,7 +66,7 @@ describe('PassesService', () => {
   });
 
   it('blocks a second verify of the same pass (double-use)', async () => {
-    repo.query.mockResolvedValueOnce([]); // atomic update matched nothing
+    repo.query.mockResolvedValueOnce([[], 0]); // atomic update matched nothing
     repo.findOne.mockResolvedValueOnce({
       code: 'abc',
       status: PassStatus.USED,
@@ -68,7 +78,7 @@ describe('PassesService', () => {
   });
 
   it('returns 404 for an unknown code', async () => {
-    repo.query.mockResolvedValueOnce([]);
+    repo.query.mockResolvedValueOnce([[], 0]);
     repo.findOne.mockResolvedValueOnce(null);
     await expect(service.verify('nope')).rejects.toBeInstanceOf(
       NotFoundException,
@@ -76,7 +86,7 @@ describe('PassesService', () => {
   });
 
   it('marks an out-of-date pass EXPIRED and rejects it', async () => {
-    repo.query.mockResolvedValueOnce([]); // failed the valid_date guard
+    repo.query.mockResolvedValueOnce([[], 0]); // failed the valid_date guard
     repo.findOne.mockResolvedValueOnce({
       code: 'abc',
       status: PassStatus.PENDING,
