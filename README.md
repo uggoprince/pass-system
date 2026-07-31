@@ -8,8 +8,9 @@ A simple check-in system: an admin creates a pass with a unique entry code, and 
 
 ## Live Links
 
-- Backend (Railway): _TODO — add deployed API URL_
-- Frontend (Vercel): _TODO — add deployed app URL_
+- Frontend (Vercel): https://pass-system-tau.vercel.app
+- Backend (Railway): https://pass-system-production.up.railway.app
+- Swagger/OpenAPI docs: https://pass-system-production.up.railway.app/api
 
 ## Endpoints
 
@@ -53,7 +54,7 @@ Request body:
 
 A full Postman collection covering all four cases is at [`postman_collection.json`](postman_collection.json) — import it into Postman and set the `base_url` variable (defaults to `http://localhost:3000`).
 
-Interactive Swagger/OpenAPI docs are also served by the running backend at `/api` (raw spec at `/api-json`).
+Interactive Swagger/OpenAPI docs are also served by the running backend at `/api` (raw spec at `/api-json`) — live at https://pass-system-production.up.railway.app/api.
 
 ## Setup & Run
 
@@ -112,9 +113,9 @@ npm run test:all   # both
 
 ### 1. Shipping as native iOS/Android apps alongside the web version
 
-I'd keep the NestJS backend as the single source of truth and build native clients on top rather than duplicating logic. For mobile, I'd use **React Native with Expo** over separate Swift/Kotlin codebases — this domain (forms, a QR scan flow, REST calls) only needs the camera beyond what Expo covers out of the box, and Expo gives fast CI/CD, OTA updates, and store builds without per-machine native tooling.
+I'd keep the NestJS backend as the single source of truth and build native clients on top rather than duplicating logic. For mobile, I'd use **React Native** (with Metro as the bundler) over separate Swift/Kotlin codebases — this domain (forms, a QR scan flow, REST calls) doesn't need much beyond the camera, and a plain React Native + Metro setup gives full control over native modules and build config without an extra managed layer.
 
-I'd extract the API client and validation logic into a shared package used by both the Next.js and Expo apps, so contracts don't drift. The backend needs no changes — it's already a stateless, CORS-enabled REST API. The one addition I'd consider is push notifications for verifiers via `NotificationsService`, already stubbed in.
+I'd extract the API client and validation logic into a shared package used by both the Next.js and React Native apps. The backend needs no changes, it's already a stateless, CORS-enabled REST API. The one addition I'd consider is push notifications for verifiers via `NotificationsService`, already stubbed in.
 
 ### 2. Choosing between push, SMS, and WhatsApp per event, cost-consciously
 
