@@ -1,0 +1,392 @@
+{
+  "item": [
+    {
+      "name": "passes",
+      "description": "",
+      "item": [
+        {
+          "id": "bb52ead9-6407-4e48-b628-62bcf9870e56",
+          "name": "Create a pass",
+          "request": {
+            "name": "Create a pass",
+            "description": {
+              "content": "Generates a unique code and stores it as PENDING.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "passes"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": [],
+              "raw": "{{base_url}}/passes"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"validDate\": \"<string>\",\n  \"host\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0790cb31-4934-4589-9635-5fdd7cbcf366",
+              "name": "Pass created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passes"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": [],
+                  "raw": "{{base_url}}/passes"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"validDate\": \"<string>\",\n  \"host\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"code\": \"<string>\",\n  \"status\": \"PENDING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ecfd51c-75ca-4ef4-9a15-ad5cebd5a2ae",
+              "name": "Validation failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "passes"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": [],
+                  "raw": "{{base_url}}/passes"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"validDate\": \"<string>\",\n  \"host\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [],
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "name": "verify",
+          "description": "",
+          "item": [
+            {
+              "id": "8b5e8fc9-b5b8-4842-b9f2-a5fffc7acddb",
+              "name": "Verify (redeem) a pass",
+              "request": {
+                "name": "Verify (redeem) a pass",
+                "description": {
+                  "content": "Redeems a PENDING pass by code, marking it USED.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "passes",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": [],
+                  "raw": "{{base_url}}/passes/verify"
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": null
+              },
+              "response": [
+                {
+                  "id": "7d2bc73e-d16f-461b-a7c1-bcf1b05626b8",
+                  "name": "Pass successfully redeemed.",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "passes",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "query": [],
+                      "variable": [],
+                      "raw": "{{base_url}}/passes/verify"
+                    },
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "POST",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": \"EXPIRED\",\n  \"pass\": {\n    \"id\": \"<string>\",\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": {},\n    \"validDate\": \"<string>\",\n    \"status\": \"USED\",\n    \"usedAt\": {},\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                  "cookie": [],
+                  "_postman_previewlanguage": "json"
+                },
+                {
+                  "id": "d5818cdf-8591-4610-a41c-baa5fc427dda",
+                  "name": "Unknown code.",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "passes",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "query": [],
+                      "variable": [],
+                      "raw": "{{base_url}}/passes/verify"
+                    },
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "POST",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "header": [],
+                  "cookie": [],
+                  "_postman_previewlanguage": "text"
+                },
+                {
+                  "id": "b79269f5-b724-4137-a352-a71aa6bc3f0a",
+                  "name": "Pass already used.",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "passes",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "query": [],
+                      "variable": [],
+                      "raw": "{{base_url}}/passes/verify"
+                    },
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "POST",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "header": [],
+                  "cookie": [],
+                  "_postman_previewlanguage": "text"
+                },
+                {
+                  "id": "ec4b8048-81ba-4136-8637-3070ec7e4d3d",
+                  "name": "Pass expired.",
+                  "originalRequest": {
+                    "url": {
+                      "path": [
+                        "passes",
+                        "verify"
+                      ],
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "query": [],
+                      "variable": [],
+                      "raw": "{{base_url}}/passes/verify"
+                    },
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "method": "POST",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    }
+                  },
+                  "status": "Gone",
+                  "code": 410,
+                  "header": [],
+                  "cookie": [],
+                  "_postman_previewlanguage": "text"
+                }
+              ],
+              "event": [],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "info": {
+    "_postman_id": "57a39e8c-7704-4654-99ac-4d7f3c2dd070",
+    "name": "Pass & Verification System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Endpoints for creating and verifying entry passes.",
+      "type": "text/plain"
+    }
+  }
+}
